@@ -1,0 +1,67 @@
+Author: Olivier Sallou <olivier.sallou@irisa.fr>
+Description: fonts-cmu use ttf, so update conf accordingly
+Last-Update: 2011-09-08
+--- a/etc/fonts.conf
++++ b/etc/fonts.conf
+@@ -27,18 +27,18 @@
+ # CMU Typewriter Regular, when rotated. For this reason, TTF versions
+ # of these fonts are used.
+ 
+-serif               = fonts/modern/cmunrm.otf # CMUSerif-Roman
+-serif_roman         = fonts/modern/cmunrm.otf # CMUSerif-Roman
+-serif_default       = fonts/modern/cmunrm.otf # CMUSerif-Roman
+-serif_normal        = fonts/modern/cmunrm.otf # CMUSerif-Roman
+-serif_light         = fonts/modern/cmunrm.otf # CMUSerif-Roman
+-serif_bold          = fonts/modern/cmunbx.otf # CMUSerif-Bold
+-serif_italic        = fonts/modern/cmunui.otf # CMUSerif-Italic
+-serif_bolditalic    = fonts/modern/cmunbi.otf # CMUSerif-BoldItalic
+-serif_italicbold    = fonts/modern/cmunbi.otf # CMUSerif-BoldItalic
+-serif_condensed     = fonts/modern/cmunssdc.otf # CMUSerif-DemiCondensed
+-serif_condensedbold = fonts/modern/cmunssdc.otf # CMUSerif-DemiCondensed
+-serif_boldcondensed = fonts/modern/cmunssdc.otf # CMUSerif-DemiCondensed
++serif               = fonts/modern/cmunrm.ttf # CMUSerif-Roman
++serif_roman         = fonts/modern/cmunrm.ttf # CMUSerif-Roman
++serif_default       = fonts/modern/cmunrm.ttf # CMUSerif-Roman
++serif_normal        = fonts/modern/cmunrm.ttf # CMUSerif-Roman
++serif_light         = fonts/modern/cmunrm.ttf # CMUSerif-Roman
++serif_bold          = fonts/modern/cmunbx.ttf # CMUSerif-Bold
++serif_italic        = fonts/modern/cmunui.ttf # CMUSerif-Italic
++serif_bolditalic    = fonts/modern/cmunbi.ttf # CMUSerif-BoldItalic
++serif_italicbold    = fonts/modern/cmunbi.ttf # CMUSerif-BoldItalic
++serif_condensed     = fonts/modern/cmunssdc.ttf # CMUSerif-DemiCondensed
++serif_condensedbold = fonts/modern/cmunssdc.ttf # CMUSerif-DemiCondensed
++serif_boldcondensed = fonts/modern/cmunssdc.ttf # CMUSerif-DemiCondensed
+ 
+ sans_serif     = fonts/modern/cmunbmr.ttf # CMUBright-Roman
+ sans           = fonts/modern/cmunbmr.ttf # CMUBright-Roman
+@@ -46,20 +46,20 @@
+ light          = fonts/modern/cmunbmr.ttf # CMUBright-Roman
+ normal         = fonts/modern/cmunbmr.ttf # CMUBright-Roman
+ default        = fonts/modern/cmunbmr.ttf # CMUBright-Roman
+-semibold       = fonts/modern/cmunbsr.otf # CMUBright-Semibold
+-bold           = fonts/modern/cmunbbx.otf # CMUBright-Bold
+-italic         = fonts/modern/cmunbmo.otf # CMUBright-Oblique
+-bolditalic     = fonts/modern/cmunbxo.otf # CMUBright-BoldOblique
+-italicbold     = fonts/modern/cmunbxo.otf # CMUBright-BoldOblique
++semibold       = fonts/modern/cmunbsr.ttf # CMUBright-Semibold
++bold           = fonts/modern/cmunbbx.ttf # CMUBright-Bold
++italic         = fonts/modern/cmunbmo.ttf # CMUBright-Oblique
++bolditalic     = fonts/modern/cmunbxo.ttf # CMUBright-BoldOblique
++italicbold     = fonts/modern/cmunbxo.ttf # CMUBright-BoldOblique
+ 
+-condensed      = fonts/modern/cmunssdc.otf # CMUSansSerif-DemiCondensed
+-condensedbold  = fonts/modern/cmunssdc.otf # CMUSansSerif-DemiCondensed
+-boldcondensed  = fonts/modern/cmunssdc.otf # CMUSansSerif-DemiCondensed
++condensed      = fonts/modern/cmunssdc.ttf # CMUSansSerif-DemiCondensed
++condensedbold  = fonts/modern/cmunssdc.ttf # CMUSansSerif-DemiCondensed
++boldcondensed  = fonts/modern/cmunssdc.ttf # CMUSansSerif-DemiCondensed
+ 
+ mono           = fonts/modern/cmuntt.ttf   # CMUTypewriter-Regular
+ fixed          = fonts/modern/cmuntt.ttf   # CMUTypewriter-Regular
+-mono_light     = fonts/modern/cmunbtl.otf  # CMUTypewriter-Light
+-fixed_light    = fonts/modern/cmunbtl.otf  # CMUTypewriter-Light
++mono_light     = fonts/modern/cmunbtl.ttf  # CMUTypewriter-Light
++fixed_light    = fonts/modern/cmunbtl.ttf  # CMUTypewriter-Light
+ 
+ symbols        = fonts/symbols/circossymbols.otf # CircosSymbols
+ symbol         = fonts/symbols/circossymbols.otf # CircosSymbols

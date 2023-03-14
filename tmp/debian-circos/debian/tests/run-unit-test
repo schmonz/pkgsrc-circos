@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+pkg=circos
+if [ "$AUTOPKGTEST_TMP" = "" ] ; then
+  AUTOPKGTEST_TMP=`mktemp -d /tmp/${pkg}-test.XXXXXX`
+  trap "rm -rf $AUTOPKGTEST_TMP" 0 INT QUIT ABRT PIPE TERM
+fi
+cd $AUTOPKGTEST_TMP
+cp -a /usr/share/doc/$pkg/examples/* $AUTOPKGTEST_TMP
+ln -s /etc/circos/tracks etc
+find . -name "*.gz" -exec gunzip \{\} \;
+cp -a circos.svg circos-orig.svg
+mv circos.png circos-orig.png
+./run
+if [ ! -e circos.svg ] ; then
+    echo "Test failed"
+    exit 1
+fi
+
+if ! diff -q circos-orig.svg circos.svg > /dev/null ; then
+    echo "SVG results are different! Please check the results."
+fi
+
+if ! cmp --quiet circos-orig.png circos.png ; then
+    echo "PNG results are different! Please check the results"
+fi

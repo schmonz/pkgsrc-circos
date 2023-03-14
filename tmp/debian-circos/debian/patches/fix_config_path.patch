@@ -1,0 +1,307 @@
+Description: Fix config path
+Bug-Debian: https://bugs.debian.org/962247
+Author: Andreas Tille <tille@debian.org>
+Last-Update: Fri, 05 Jun 2020 08:43:04 +0200
+Comment: May be it would be better to do in d/rules some
+    find debian/circos -type f | xargs sed -i 's:include etc/:include :g'
+
+--- a/bin/circos
++++ b/bin/circos
+@@ -143,10 +143,10 @@
+   </plots>
+ 
+   # colors, fonts and fill patterns
+-  <<include etc/colors_fonts_patterns.conf>>
++  <<include colors_fonts_patterns.conf>>
+ 
+   # system parameters
+-  <<include etc/housekeeping.conf>>
++  <<include housekeeping.conf>>
+ 
+ =head2 Modularity
+ 
+@@ -168,12 +168,12 @@
+ 
+   # image size, output file name
+   <image>
+-  <<include etc/image.conf>>
++  <<include image.conf>>
+   </image>
+   # color names and lists, location of fonts, fill patterns
+-  <<include etc/colors_fonts_patterns.conf>>
++  <<include colors_fonts_patterns.conf>>
+   # low-level system parameters
+-  <<include etc/housekeeping.conf>>
++  <<include housekeeping.conf>>
+ 
+ =head2 Overriding with *
+ 
+@@ -181,7 +181,7 @@
+ 
+   <image>
+   # included file defines 'radius'
+-  <<include etc/image.conf>>
++  <<include image.conf>>
+   # this will override the radius value
+   radius* = 2500p
+   </image>
+@@ -248,7 +248,7 @@
+ The purpose of this is to allow you to add to canonical definitions.
+ 
+   # this file defines default <colors>, <fonts> and <patterns>
+-  <<include etc/colors_fonts_patterns.conf>>
++  <<include colors_fonts_patterns.conf>>
+ 
+   # add to the colors block
+   <colors>
+@@ -315,7 +315,7 @@
+ 
+ If you want to redefine the search paths, see the C<data_path> parameter in C<etc/housekeeping.conf> in the distribution directory, or overide it in your configuration file
+ 
+-  <<include etc/housekeeping.conf>>
++  <<include housekeeping.conf>>
+   data_path* = ...
+ 
+ =head1 OPTIONS
+--- a/etc/colors_fonts_patterns.conf
++++ b/etc/colors_fonts_patterns.conf
+@@ -1,12 +1,12 @@
+ 
+ <colors>
+-<<include etc/colors.conf>>
++<<include /etc/circos/colors.conf>>
+ </colors>
+ 
+ <fonts>
+-<<include etc/fonts.conf>>
++<<include /etc/circos/fonts.conf>>
+ </fonts>
+ 
+ <patterns>
+-<<include etc/patterns.conf>>
+-</patterns>
+\ No newline at end of file
++<<include /etc/circos/patterns.conf>>
++</patterns>
+--- a/etc/gddiag.conf
++++ b/etc/gddiag.conf
+@@ -18,6 +18,6 @@
+ 
+ output_file_root  = gddiag
+ 
+-<<include etc/colors_fonts_patterns.conf>>
+-<<include etc/housekeeping.conf>>
++<<include colors_fonts_patterns.conf>>
++<<include housekeeping.conf>>
+ 
+--- a/etc/brewer.conf
++++ b/etc/brewer.conf
+@@ -4,6 +4,6 @@
+ # Your color blocks should now be
+ #
+ # <colors>
+-# <<include etc/colors.conf>>
++# <<include colors.conf>>
+ # # any custom colors here
+ # </colors>
+--- a/lib/Circos/Error.pm
++++ b/lib/Circos/Error.pm
+@@ -129,7 +129,7 @@
+ 	 no_debug_group=>"You asked for debug group [%s] using -debug_group. This group is not defined. Please use one of\n\n[%s]\n\nTo request all groups, use -debug_group _all.",
+ 	 deprecated =>"The configuration syntax [%s] is deprecated and no longer supported. Instead, use [%s].",
+ 	 no_such_conf_item => "You attempted to reference a configuration parameter using %s, but no parameter was found at the configuration file position %s.\n\nTo reference a parameter in another block, provide the full block path, such as conf(ideogram,spacing,default). In general, conf(block1,block2,...,blockn,parameter).\n\nTo reference the first defined parameter above the block in which conf() is called, use conf(.,parameter).",
+-   no_housekeeping => "You did not include the etc/housekeeping.conf file in your configuration file. This file contains many important system parameters and must be included in each Circos configuration.\n\nTo do so, use\n\n  <<include etc/housekeeping.conf>>\n\nin your main configuration file. For an example, see\n\n  http://www.circos.ca/documentation/tutorials/quick_guide/hello_world/configuration\n\nIf you have made other provisions to include these parameters, make sure you have\n\n  housekeeping = yes\n\ndefined to skip this check.",
++   no_housekeeping => "You did not include the etc/housekeeping.conf file in your configuration file. This file contains many important system parameters and must be included in each Circos configuration.\n\nTo do so, use\n\n  <<include housekeeping.conf>>\n\nin your main configuration file. For an example, see\n\n  http://www.circos.ca/documentation/tutorials/quick_guide/hello_world/configuration\n\nIf you have made other provisions to include these parameters, make sure you have\n\n  housekeeping = yes\n\ndefined to skip this check.",
+    multi_word_key => "Your parameter [%s] contains a white space. This is not allowed. You either forgot a '=' in assignment (e.g. 'red 255,0,0' vs 'red = 255,0,0') or used a multi-word parameter name\n (e.g. 'my red = 255,0,0' vs 'my_red = 255,0,0'",
+    missing => "file(error/configuration.missing.txt)",
+    bad_parameter_type => "You attempted to reference a configuration parameter group with name [%s], but it is not defined",
+--- a/example/etc/karyotype.and.layout.conf
++++ b/example/etc/karyotype.and.layout.conf
+@@ -1,5 +1,5 @@
+ 
+-karyotype = data/karyotype/karyotype.human.txt,data/karyotype/karyotype.mouse.txt,data/karyotype/karyotype.rat.txt
++karyotype = /usr/share/doc/circos/examples/data/karyotype/karyotype.human.txt,/usr/share/doc/circos/examples/data/karyotype/karyotype.mouse.txt,/usr/share/doc/circos/examples/data/karyotype/karyotype.rat.txt
+ 
+ chromosomes_order_by_karyotype = yes
+ chromosomes_units              = 1000000
+--- a/etc/housekeeping.conf
++++ b/etc/housekeeping.conf
+@@ -255,7 +255,7 @@
+ data_out_of_range = trim,warn # 
+ 
+ # Track default directory
+-track_defaults = etc/tracks
++track_defaults = /etc/circos/tracks
+ 
+ # Use round brushes for elements with thickness greater than round_brush_min_thickness?
+ round_brush_use           = yes
+--- a/example/etc/circos.conf
++++ b/example/etc/circos.conf
+@@ -19,12 +19,12 @@
+ color         = black_a5
+ 
+ <link>
+-file = data/rn.bundle.txt
++file = /usr/share/doc/circos/examples/data/rn.bundle.txt
+ <<include link.rules.conf>>
+ </link>
+ 
+ <link>
+-file = data/mm.bundle.txt
++file = /usr/share/doc/circos/examples/data/mm.bundle.txt
+ <<include link.rules.conf>>
+ </link>
+ 
+@@ -41,7 +41,7 @@
+ <plot>
+ show   = conf(show_text)
+ type   = text
+-file   = data/genes.txt
++file   = /usr/share/doc/circos/examples/data/genes.txt
+ color  = black
+ r1     = 0.73r
+ r0     = 0.415r
+@@ -86,7 +86,7 @@
+ <plot>
+ show   = conf(show_heatmaps)
+ type   = heatmap
+-file   = data/heatmap.hs.mm.20e6.txt
++file   = /usr/share/doc/circos/examples/data/heatmap.hs.mm.20e6.txt
+ # this is a 9-color Brewer blues sequential palette
+ # see etc/colors.brewer.lists.conf for color list definitions and
+ # etc/colors.brewer.conf for Brewer color RGB definitions
+@@ -102,7 +102,7 @@
+ <plot>
+ show   = conf(show_heatmaps)
+ type   = heatmap
+-file   = data/heatmap.hs.rn.20e6.txt
++file   = /usr/share/doc/circos/examples/data/heatmap.hs.rn.20e6.txt
+ # this is a 9-color Brewer reds sequential palette
+ color  = reds-9-seq
+ min    = 0
+@@ -116,7 +116,7 @@
+ <plot>
+ show   = conf(show_heatmaps)
+ type   = heatmap
+-file   = data/heatmap.hs.mm.10e6.txt
++file   = /usr/share/doc/circos/examples/data/heatmap.hs.mm.10e6.txt
+ color  = blues-9-seq
+ min    = 0
+ max    = .10e6
+@@ -129,7 +129,7 @@
+ <plot>
+ show   = conf(show_heatmaps)
+ type   = heatmap
+-file   = data/heatmap.hs.rn.10e6.txt
++file   = /usr/share/doc/circos/examples/data/heatmap.hs.rn.10e6.txt
+ color  = reds-9-seq
+ min    = 0
+ max    = .10e6
+@@ -153,7 +153,7 @@
+ <plot>
+ show = conf(show_histogram)
+ type = histogram
+-file = data/heatmap.hs.mm.20e6.txt
++file = /usr/share/doc/circos/examples/data/heatmap.hs.mm.20e6.txt
+ min  = 0
+ max  = .5e6
+ fill_under = yes
+@@ -199,7 +199,7 @@
+ <plot>
+ show = conf(show_scatter)
+ type = scatter
+-file = data/heatmap.hs.mm.5e6.txt
++file = /usr/share/doc/circos/examples/data/heatmap.hs.mm.5e6.txt
+ r1   = 1r+180p
+ r0   = 1r
+ max  = .5e6
+@@ -217,7 +217,7 @@
+ <plot>
+ show = conf(show_histogram)
+ type = histogram
+-file = data/heatmap.hs.rn.20e6.txt
++file = /usr/share/doc/circos/examples/data/heatmap.hs.rn.20e6.txt
+ r1   = 1r+180p
+ r0   = 1r
+ max  = .5e6
+@@ -230,7 +230,7 @@
+ <plot>
+ show  = conf(show_scatter)
+ type  = scatter
+-file  = data/heatmap.hs.rn.5e6.txt
++file  = /usr/share/doc/circos/examples/data/heatmap.hs.rn.5e6.txt
+ r1    = 1r+180p
+ r0    = 1r
+ max   = .5e6
+--- a/example/etc/highlights.conf
++++ b/example/etc/highlights.conf
+@@ -3,7 +3,7 @@
+ <plot>
+ show = conf(show_highlights)
+ type = highlight
+-file = data/highlights.txt
++file = /usr/share/doc/circos/examples/data/highlights.txt
+ r0   = 1r+180p
+ r1   = 1r+181p
+ stroke_color = black
+@@ -16,7 +16,7 @@
+ <plot>
+ show = conf(show_highlights)
+ type = highlight
+-file = data/highlights.txt
++file = /usr/share/doc/circos/examples/data/highlights.txt
+ r0 = 0.45r-50p
+ r1 = 0.45r-45p
+ 
+--- a/example/etc/mmchain.conf
++++ b/example/etc/mmchain.conf
+@@ -1,6 +1,6 @@
+ <plot>
+ pre_increment_counter = mmchain:1
+-file  = data/heatmap.mm.5e6.hs.counter(mmchain).txt
++file  = /usr/share/doc/circos/examples/data/heatmap.mm.5e6.hs.counter(mmchain).txt
+ show  = conf(show_heatmaps)
+ type  = heatmap
+ min   = 6000
+--- a/example/etc/mmchain.scatter.conf
++++ b/example/etc/mmchain.scatter.conf
+@@ -8,7 +8,7 @@
+ max        = 1e6
+ r0         = eval(sprintf("1r+%dp",90-0*counter(mmchainscatter)))
+ r1         = eval(sprintf("1r+%dp",90-0*counter(mmchainscatter)))
+-file       = data/heatmap.mm.5e6.hs.counter(mmchainscatter).txt
++file       = /usr/share/doc/circos/examples/data/heatmap.mm.5e6.hs.counter(mmchainscatter).txt
+ color      = undef
+ <rules>
+ <rule>
+--- a/example/etc/mmchain.text.conf
++++ b/example/etc/mmchain.text.conf
+@@ -1,6 +1,6 @@
+ <plot>
+ pre_increment_counter = mmchaintext:1
+-file       = ../data/heatmap.mm.5e6.hs.counter(mmchain).txt
++file       = /usr/share/doc/circos/examples/data/heatmap.mm.5e6.hs.counter(mmchain).txt
+ show       = conf(show_text)
+ type       = text
+ label_font = glyph
+--- a/example/etc/rnchain.conf
++++ b/example/etc/rnchain.conf
+@@ -1,6 +1,6 @@
+ <plot>
+ pre_increment_counter = rnchain:1
+-file  = data/heatmap.rn.5e6.hs.counter(rnchain).txt
++file  = /usr/share/doc/circos/examples/data/heatmap.rn.5e6.hs.counter(rnchain).txt
+ show  = conf(show_heatmaps)
+ type  = heatmap
+ min   = 6000
+--- a/example/etc/rnchain.scatter.conf
++++ b/example/etc/rnchain.scatter.conf
+@@ -8,7 +8,7 @@
+ max        = 1e6
+ r0         = eval(sprintf("1r+%dp",180-30*counter(rnchainscatter)))
+ r1         = eval(sprintf("1r+%dp",180-30*counter(rnchainscatter)))
+-file       = data/heatmap.rn.5e6.hs.counter(rnchainscatter).txt
++file       = /usr/share/doc/circos/examples/data/heatmap.rn.5e6.hs.counter(rnchainscatter).txt
+ color      = black
+ <rules>
+ <rule>

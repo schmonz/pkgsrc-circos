@@ -1,0 +1,15 @@
+Circos for Debian
+-----------------
+
+To test the installation of the package, go to a copy of the directory
+/usr/share/doc/circos/example and execute:
+
+ circos -conf circos.conf
+
+The files ‘circos.svg’ and ‘circos.png’ will be regenerated, and can be
+compared to the originals.
+
+Warning: Many example files are compressed in /usr/share/doc/circos/examples/*.
+Running the example program will failed due to the compressed files. To execute
+ the sample program, you should first uncompress those files.
+

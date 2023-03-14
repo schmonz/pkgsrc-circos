@@ -1,0 +1,33 @@
+Description: Add Debian directories in search path
+Author: Olivier Sallou <olivier.sallou@irisa.fr> 
+Last-Update: 2012-09-21
+Forwarded: not-needed
+--- a/lib/Circos/Configuration.pm
++++ b/lib/Circos/Configuration.pm
+@@ -798,6 +798,7 @@ sub loadconfiguration {
+   }
+ 
+   my @configpath = (
++										"/etc/circos",
+ 										dirname($file),
+ 										dirname($file)."/etc",
+ 										"$FindBin::RealBin/etc", 
+--- a/etc/makehuesteps
++++ b/etc/makehuesteps
+@@ -1,4 +1,4 @@
+-#!/bin/env perl 
++#!/usr/bin/env perl 
+ 
+ use strict;
+ use Math::Round qw(round);
+--- a/lib/Circos/Utils.pm
++++ b/lib/Circos/Utils.pm
+@@ -610,7 +610,7 @@ sub locate_file {
+ 	}
+ 
+ 	# v0.63 added configuration directory to dir_1
+-	my @dir_1 = grep($_,getcwd,Circos::Configuration::fetch_conf("configdir"),$FindBin::RealBin);
++	my @dir_1 = grep($_,getcwd,Circos::Configuration::fetch_conf("configdir"),$FindBin::RealBin,"/usr/share/circos");
+ 	my @dir_2 = qw(. .. ../.. ../../..);
+ 	my @dir_3 = qw(. etc data);
+ 

@@ -1,0 +1,6 @@
+use_ttf_fonts
+configpath_add_etc
+fix_examples
+fix_manpage
+fix_pod_syntax.patch
+fix_config_path.patch

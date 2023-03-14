@@ -1,0 +1,42 @@
+Subject: change path to conf file for examples
+Description: etc sub directory is hard coded 
+ in example conf files. In Debian conf files are
+ in /etc/circos. This path is already added to search
+ path.
+Author: Olivier Sallou <osallou@debian.org>
+Last-Updated: 2012-09-21
+Forwarded: not-needed
+--- a/example/run
++++ b/example/run
+@@ -4,5 +4,5 @@ echo "Creating image circos.png and writ
+ 
+ echo "Example takes ~45-60 seconds to generate."
+ 
+-../bin/circos -conf etc/circos.conf -debug_group summary,timer > run.out
++circos -conf etc/circos.conf -debug_group summary,timer > run.out
+ 
+--- a/example/etc/circos.conf
++++ b/example/etc/circos.conf
+@@ -248,16 +248,16 @@ orientation = in
+ <<include ticks.conf>>
+ 
+ <image>
+-<<include etc/image.conf>>
++<<include image.conf>>
+ </image>
+ 
+-# includes etc/colors.conf
+-#          etc/fonts.conf
+-#          etc/patterns.conf
+-<<include etc/colors_fonts_patterns.conf>>
++# includes colors.conf
++#          fonts.conf
++#          patterns.conf
++<<include colors_fonts_patterns.conf>>
+ 
+ # system and debug settings
+-<<include etc/housekeeping.conf>>
++<<include housekeeping.conf>>
+ data_out_of_range* = trim
+ 
+ # If you experience strange artefacts in the image (spurious squares),

@@ -1,0 +1,31 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+include /usr/share/dpkg/default.mk
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+override_dh_install:
+	dh_install
+	# Update $(DEB_SOURCE) relative path to absolute debian paths
+	find debian/$(DEB_SOURCE) -type f | xargs sed -i 's/include etc/include \/usr\/share\/$(DEB_SOURCE)\/etc/g'
+	find debian/$(DEB_SOURCE) -type f | xargs sed -i 's/include fonts/include \/usr\/share\/$(DEB_SOURCE)\/fonts/g'
+	find debian/$(DEB_SOURCE) -type f | xargs sed -i 's/include tiles/include \/usr\/share\/$(DEB_SOURCE)\/tiles/g'
+	for pl in `grep -Rl '#![[:space:]]*/usr/bin/env[[:space:]]\+perl' debian/*/*` ; do \
+	    sed -i '1s?^#![[:space:]]*/usr/bin/env[[:space:]]\+perl?#!/usr/bin/perl?' $${pl} ; \
+	done
+
+override_dh_installman:
+	pod2man bin/$(DEB_SOURCE) > $(CURDIR)/debian/$(DEB_SOURCE)/usr/share/man/man1/$(DEB_SOURCE).1
+
+override_dh_link:
+	dh_link
+	for cfgfile in debian/$(DEB_SOURCE)/usr/share/doc/$(DEB_SOURCE)/examples/etc/*.conf ; do \
+	    rm $${cfgfile} ; \
+	    dh_link etc/$(DEB_SOURCE)/`basename $${cfgfile}` usr/share/doc/$(DEB_SOURCE)/examples/etc/`basename $${cfgfile}` ; \
+	done
+

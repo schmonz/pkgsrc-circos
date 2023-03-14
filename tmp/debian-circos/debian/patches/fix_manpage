@@ -1,0 +1,25 @@
+Subject: fix errors from pod2man result
+Description: Perl file used as source for man page contains errors.
+Author: Olivier Sallou <osallou@debian.org>
+Last-Updated: 2013-05-20
+Forwarded: No
+--- a/lib/Circos.pm
++++ b/lib/Circos.pm
+@@ -7,7 +7,7 @@ our $VERSION_DATE = "31 July 2017";
+ 
+ =head1 NAME
+ 
+-Circos - Circular data visualizations for comparison of genomes, among other things
++Circos  \- Circular data visualizations for comparison of genomes, among other things
+ 
+ =head1 SYNOPSIS
+ 
+@@ -7189,7 +7189,7 @@ L<http://www.circos.ca/documentation/cou
+ 
+ =over
+ 
+-item * Hive plots 
++=item * Hive plots 
+ 
+ L<http://www.hiveplot.com>
+ 

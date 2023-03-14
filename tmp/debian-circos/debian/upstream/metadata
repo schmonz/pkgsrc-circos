@@ -1,0 +1,28 @@
+Reference:
+ Author: >
+  Martin I Krzywinski and Jacqueline E Schein and Inanc Birol and Joseph
+  Connors and Randy Gascoyne and Doug Horsman and Steven J Jones and
+  Marco A Marra
+ Title: >
+  Circos: An information aesthetic for comparative genomics
+ Journal: Genome Research
+ Year: 2009
+ Volume: 19
+ Number: 9
+ Pages: 1639-45
+ PMID: 19541911
+ DOI: 10.1101/gr.092759.109
+ URL: http://genome.cshlp.org/content/early/2009/06/15/gr.092759.109.abstract
+ eprint: >
+  http://genome.cshlp.org/content/early/2009/06/15/gr.092759.109.full.pdf+html
+Repository: http://circos.ca/software/download/
+Screenshots: http://circos.ca/tutorials/images/small/
+Registry:
+ - Name: bio.tools
+   Entry: circos
+ - Name: SciCrunch
+   Entry: SCR_011798
+ - Name: OMICtools
+   Entry: OMICS_00932
+ - Name: conda:bioconda
+   Entry: circos

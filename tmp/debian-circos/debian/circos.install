@@ -1,0 +1,6 @@
+bin/circos	usr/bin
+etc/*		etc/circos
+example/etc/*	etc/circos
+lib/*		usr/share/perl5
+tiles		usr/share/circos
+error		usr/share/circos

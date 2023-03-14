@@ -1,0 +1,62 @@
+Source: circos
+Maintainer: Debian Med Packaging Team <debian-med-packaging@lists.alioth.debian.org>
+Uploaders: Olivier Sallou <osallou@debian.org>,
+           Andreas Tille <tille@debian.org>
+Section: science
+Priority: optional
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Vcs-Browser: https://salsa.debian.org/med-team/circos
+Vcs-Git: https://salsa.debian.org/med-team/circos.git
+Homepage: http://circos.ca/
+Rules-Requires-Root: no
+
+Package: circos
+Architecture: all
+Depends: ${misc:Depends},
+         ${perl:Depends},
+         fonts-circos-symbols,
+         fonts-cmu,
+         libregexp-common-perl,
+         libcarp-always-perl,
+         libconfig-general-perl,
+         libdata-dumper-simple-perl,
+         libgd-gd2-perl,
+         libgetopt-simple-perl,
+         libmath-bezier-perl,
+         libmath-round-perl,
+         libparams-validate-perl,
+         libreadonly-perl,
+         libset-intspan-perl,
+         liblist-allutils-perl,
+         libfile-basedir-perl,
+         libmath-bigint-perl,
+         libmath-vec-perl,
+         libio-all-perl,
+         libmath-vecstat-perl,
+         libgraphics-colorobject-perl,
+         libtext-format-perl,
+         libfont-ttf-perl,
+         libclone-perl,
+         libstatistics-basic-perl,
+         libsvg-perl
+Recommends: circos-tools
+Description: plotter for visualizing data
+ Circos visualizes data in a circular layout — ideal for exploring
+ relationships between objects or positions, and creating highly
+ informative publication-quality graphics.
+ .
+ This package provides the Circos plotting engine, which is command-line
+ driven (like gnuplot) and fully scriptable.
+
+Package: fonts-circos-symbols
+Architecture: all
+Multi-Arch: foreign
+Section: fonts
+Depends: ${misc:Depends}
+Description: plotter for visualizing data - standard fonts
+ Circos visualizes data in a circular layout — ideal for exploring
+ relationships between objects or positions, and creating highly
+ informative publication-quality graphics.
+ .
+ This package provides a set of fonts used by default with Circos.

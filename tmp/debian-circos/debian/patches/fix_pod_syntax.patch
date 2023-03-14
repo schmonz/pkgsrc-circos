@@ -1,0 +1,17 @@
+Author: Andreas Tille <tille@debian.org>
+Last-Update: Fri, 20 May 2016 13:25:54 +0200
+Description: Add missing over which should fix
+   =back without =over
+ when creating manpages
+
+--- a/bin/circos
++++ b/bin/circos
+@@ -470,6 +470,8 @@ For example, to keep the background whit
+ 
+ =head1 DOCUMENTATION
+ 
++=over
++
+ For full documentation, see
+ 
+ L<http://www.circos.ca/documentation/tutorials>
