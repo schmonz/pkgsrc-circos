@@ -1,6 +1,6 @@
 $NetBSD: distinfo,v 1.4 2021/10/26 10:46:02 nia Exp $
 
-SHA1 (circos-0.69-9.tgz) = 7647862d692bbdaf73199d84217afd503e78cdd8
-RMD160 (circos-0.69-9.tgz) = bb1df04a4b413c9447d6639c0940ad770cfd5df5
+BLAKE2s (circos-0.69-9.tgz) = ecf2861f39ec9282cfd5baa7525f529b69b818f7b35b713a258b54ee023ecae7
 SHA512 (circos-0.69-9.tgz) = 2ad8f3def2716a6055deb36c1d44126ce96e23d8fa76c6256b6586ed3bdd641245d885f42424279e8753d9a15385ad73f9f823e27119f16e0be8fc0a01207f37
 Size (circos-0.69-9.tgz) = 29794907 bytes
+SHA1 (patch-lib_Circos_Configuration.pm) = f7a636c5fa8121a7524321bd6df92051aba4e21c
